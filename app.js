@@ -8,12 +8,23 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
+//"client_id":"333623895279-lfahsg6gjgufttktpaet39ncd650q64n.apps.googleusercontent.com"
+// "client_secret":"QRS8BhzK8aNqqKo_5dPIN2QB"
+
+const app = express();
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.use(new GoogleStrategy());
+
+
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) =>{
     res.send({hi:'there'});
 });
+
+
 
 app.listen(PORT);
 
