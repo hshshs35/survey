@@ -1,44 +1,28 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+require('./models/User');
+require('./services/passport');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+mongoose.connect(keys.mongoURI);
 
 const app = express();
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./config/keys');
+
+app.use(
+    cookieSession({
+        maxAge: 30*24*3600*1000,
+        keys: [keys.cookieKey]
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes/authRoutes')(app);
 
 const PORT = process.env.PORT || 5000;
-
-passport.use(new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
-}, (accessToken, refreshToken, profile, done) =>{
-    console.log(accessToken);
-    console.log(refreshToken);
-    console.log(profile);
-}));
-
-
-
-app.get('/', (req, res) =>{
-    res.send({hi:'there'});
-});
-
-app.get('/auth/google', passport.authenticate('google', {
-    scope:['profile', 'email']
-}));
-
-app.get('/auth/google/callback', passport.authenticate('google'));
-
-
-
 app.listen(PORT);
 
 
