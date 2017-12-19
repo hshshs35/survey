@@ -9,10 +9,11 @@
     "start": "node app.js",
     "server": "node app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "cookie-parser": "~1.4.3",
     "cookie-session": "^2.0.0-beta.3",
@@ -23,6 +24,7 @@
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "stripe": "^5.4.0"
   }
 }
