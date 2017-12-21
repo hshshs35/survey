@@ -9,8 +9,9 @@
     "start": "node app.js",
     "server": "node app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run webhook\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "webhook": "./sendgrid_webhook.sh"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -20,10 +21,13 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "hbs": "~4.0.1",
+    "localtunnel": "^1.8.3",
+    "lodash": "^4.17.4",
     "mongoose": "^4.13.5",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
+    "path-parser": "^3.0.1",
     "sendgrid": "^5.2.3",
     "serve-favicon": "~2.4.5",
     "stripe": "^5.4.0"
