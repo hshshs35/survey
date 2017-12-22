@@ -7,7 +7,7 @@ const DashBoard = () => {
         <div>
             <div className="card lighten-3" key="1">
                 <div className="card-content">
-                    <span className="card-title">Sample card survey</span>
+                    <span className="card-title">Hint Card</span>
                     <p>
                         Press the red button at the bottom right corner to send a new survey
                     </p>
